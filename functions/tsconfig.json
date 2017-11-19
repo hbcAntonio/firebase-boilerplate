@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "target": "es6",
+      "module": "commonjs",
+      "outDir": "./",
+      "noImplicitAny": true,
+      "strictNullChecks": true
+    },
+    "include": [
+      "src/**/*.ts",
+      "src/typings.d.ts"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+  }

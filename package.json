@@ -1,0 +1,37 @@
+{
+  "name": "firebase-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "firebase": "^4.6.2",
+    "moment": "^2.19.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "browserify-shim": "^3.8.14",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-babel": "^7.0.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-copy": "^1.0.1",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-fs-cache": "^0.1.0",
+    "gulp-header": "^1.8.9",
+    "gulp-jshint": "^2.0.4",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^3.0.0",
+    "jshint": "^2.9.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf ./public/dist && gulp build",
+    "postbuild": "rm -rf ./public/src/assets/js/tmp",
+    "dev": "rm -rf ./public/dist && gulp"
+  },
+  "author": "Antonio Cordeiro",
+  "license": "ISC"
+}

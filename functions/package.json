@@ -1,0 +1,24 @@
+{
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase serve --only functions",
+    "shell": "firebase experimental:functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log",
+    "build": "tsc --p tsconfig.json",
+    "dev": "tsc --watch --p tsconfig.json"
+  },
+  "dependencies": {
+    "@types/cookie-parser": "^1.4.1",
+    "@types/express-handlebars": "0.0.30",
+    "cookie-parser": "^1.4.3",
+    "firebase-admin": "~5.4.2",
+    "firebase-functions": "^0.7.1"
+  },
+  "private": true,
+  "devDependencies": {
+    "express-handlebars": "^3.0.0"
+  }
+}
