@@ -3,42 +3,22 @@ import $ from 'jquery';
 import * as firebase from 'firebase';
 import { 
     createCookie, 
-    readCookie,
     eraseCookie 
 } from './util';
 
-let currentUser = undefined;
+let currentUser;
 
-const auth = () => {
-    $('#sign-in').click(e => login(e));
-  
-    firebase.auth().getRedirectResult().then(function(result) {
-		currentUser = firebase.auth().currentUser;
-        console.log('currentUser', currentUser);
-        if(result.credential) {
-            $('#spinner').removeClass('hidden');
-            createCookie('__f4wtoken_pre', result.credential.idToken, 1);
-            createCookie('__fxwtoken', result.credential.accessToken, 1);
-        }
-        
-        // If no user is logged in, make sure
-        // new user is able to login through provider
-        if (currentUser === null) {
-            logout();
-            return;
-        } else if (currentUser) {
-			currentUser.getToken(true)
-			.then(idToken => {
-                createCookie('__f4wtoken_tsa', idToken, 1);
-				console.log('Cookie created and user updated');
-				console.log(currentUser);
-				redirect();
-			})
-			.catch(err => console.error(err));
-		}
-    }).catch(function(error) {
-        console.error(error);
-    });
+const redirect = () => {
+    $('#sign-in').addClass('disabled');
+	document.location.replace('/');
+};
+
+const logout = () => {
+    currentUser = undefined;
+    eraseCookie('__session');
+    $('#sign-in').removeClass('disabled');
+    $('#spinner').addClass('hidden');
+    return firebase.auth().signOut();
 };
 
 const login = () => {
@@ -66,19 +46,39 @@ const login = () => {
     }
 };
 
-const logout = () => {
-    currentUser = undefined;
-    eraseCookie('__f4wtoken_pre');
-    eraseCookie('__f4wtoken_tsa');
-    eraseCookie('__fxwtoken');
-    $('#sign-in').removeClass('disabled');
-    $('#spinner').addClass('hidden');
-    return firebase.auth().signOut();
+const auth = () => {
+    $('#sign-in').click(e => login(e));
+    const session = {};
+
+    firebase.auth().getRedirectResult().then(function(result) {
+		currentUser = firebase.auth().currentUser;
+        console.log('currentUser', currentUser);
+        if(result.credential) {
+            $('#spinner').removeClass('hidden');
+            session['__f4wtoken_pre'] = result.credential.idToken;
+            session['__fxwtoken'] = result.credential.accessToken;
+        }
+        
+        // If no user is logged in, make sure
+        // new user is able to login through provider
+        if (currentUser === null) {
+            logout();
+            return;
+        } else if (currentUser) {
+			currentUser.getToken(true)
+			.then(idToken => {
+                session['__f4wtoken_tsa'] = idToken;
+                createCookie('__session', JSON.stringify(session), 1);
+				console.log('Cookie created and user updated');
+				console.log(currentUser);
+				redirect();
+			})
+			.catch(err => console.error(err));
+		}
+    }).catch(function(error) {
+        console.error(error);
+    });
 };
 
-const redirect = () => {
-    $('#sign-in').addClass('disabled');
-	document.location.replace('/');
-};
 
 export default auth;

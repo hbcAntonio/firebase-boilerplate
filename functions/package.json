@@ -15,10 +15,9 @@
     "@types/express-handlebars": "0.0.30",
     "cookie-parser": "^1.4.3",
     "firebase-admin": "~5.4.2",
-    "firebase-functions": "^0.7.1"
-  },
-  "private": true,
-  "devDependencies": {
+    "firebase-functions": "^0.7.1",
+    "express": "^4.16.2",
     "express-handlebars": "^3.0.0"
-  }
+  },
+  "private": true
 }

@@ -30,7 +30,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf ./public/dist && gulp build",
     "postbuild": "rm -rf ./public/src/assets/js/tmp",
-    "dev": "rm -rf ./public/dist && gulp"
+    "dev": "rm -rf ./public/dist && gulp",
+    "deploy": "npm run build && cd functions && npm run build && cd .. && firebase deploy"
   },
   "author": "Antonio Cordeiro",
   "license": "ISC"
